@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   datasource:
     hikari:
       maximum-pool-size: 4
@@ -8,3 +10,13 @@ spring:
 
 server:
   port: 35680
+
+---
+
+spring:
+  profiles: local
+
+---
+
+spring:
+  profiles: dev
