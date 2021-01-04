@@ -10,7 +10,7 @@ group = 'com.weather.api'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-def webappDir = "$projectDir/frontend/react-board-exam"
+def webappDir = "$projectDir/frontend/react-view"
 
 task appNpmInstall(type: NpmTask) {
     workingDir = file("${webappDir}")
@@ -18,7 +18,7 @@ task appNpmInstall(type: NpmTask) {
 }
 
 task copyWebApp(type: Copy) {
-    from 'frontend/react-board-exam/build'
+    from 'frontend/react-view/build'
     into "build/resources/main/static"
 }
 
