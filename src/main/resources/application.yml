@@ -15,6 +15,14 @@ server:
 
 spring:
   profiles: local
+#logging:
+#  config: classpath:log4j2.xml
+
+key:
+  ffmpeg:
+    path: /ffmpeg/files
+  ffprobe:
+    path: /ffprobe/files
 
 ---
 
