@@ -3,14 +3,14 @@ import axios from 'axios';
 
 export const TableContext = createContext({
     currentTime: '',
-    selectedFile: '',
+    videoFile: null,
     dispatch : () => {}
 });
 
 const initialState = () => {
     return {
         currentTime: '',
-        selectedFile: ''
+        videoFile: null
     }
 }
 
@@ -18,12 +18,14 @@ const reducer = (state, action) => {
     switch (action.type) {
         case 'CURRENT_TIME': {
             return {
+                ...state,
                 currentTime: action.currentTime
             }
         }
-        case 'SELECTED_FILE': {
+        case 'UPLOAD_FILE': {
             return {
-
+                ...state,
+                videoFile: action.file
             }
         }
     }
@@ -31,7 +33,7 @@ const reducer = (state, action) => {
 
 const Home = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { currentTime, selectedFile } = state;
+    const { currentTime, videoFile } = state;
 
     useEffect(() => {
         axios.get('/api/now')
@@ -39,15 +41,32 @@ const Home = () => {
                 const currentTime = response.data;
                 dispatch({type : 'CURRENT_TIME', currentTime});
             });
-    },[currentTime]);
+    }, [currentTime]);
 
     const fileChangedHandler = (e) => {
-        const files = e.target.files;
-        dispatch({type : 'SELECTED_FILE', selectedFile});
+        const file = e.target.files;
+        dispatch({type : 'UPLOAD_FILE', file});
     };
 
     const sendEvent = () => {
-        console.log('sendEvent click!!');
+        const formData = new FormData();
+        formData.append("uploadVideoFile", videoFile[0], videoFile.name);
+
+        const config = {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        };
+
+        axios.post("api/video-convert", formData, config)
+            .then(response => {
+                console.log("success!!");
+                console.log(response);
+            })
+            .catch(response => {
+                console.log("error!!");
+                console.log(response);
+            });
     }
 
     return (

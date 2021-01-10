@@ -7,9 +7,23 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: root
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+#  mvc:
+#    static-path-pattern: /static/**
+#  resources:
+#    add-mappings: true
+#    static-locations: classpath:/static/
+
+#custom:
+#  path:
+#    upload: 'C:/Users/Gyu/cmmnUploadFiles/'
 
 server:
-  port: 35680
+  port: 80
 
 ---
 
