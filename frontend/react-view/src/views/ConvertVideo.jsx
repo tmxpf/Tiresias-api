@@ -1,4 +1,5 @@
-import React, {useEffect, useReducer, createContext, useMemo, useState} from 'react';
+import React, {useEffect, useReducer, createContext} from 'react';
+import { Navbar, Nav, Button } from 'reactstrap';
 import axios from 'axios';
 
 export const TableContext = createContext({
@@ -31,7 +32,7 @@ const reducer = (state, action) => {
     }
 }
 
-const Home = () => {
+const ConverVideo = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const { currentTime, videoFile } = state;
 
@@ -70,14 +71,12 @@ const Home = () => {
     }
 
     return (
-        <>
-            <div>
-                <input type="file" multiple onChange={fileChangedHandler} />
-                <button onClick={sendEvent}>전송하기</button>
-                {currentTime}
-            </div>
-        </>
+        <div>
+            <input type="file" multiple onChange={fileChangedHandler} />
+            <Button onClick={sendEvent}>전송하기</Button>
+            {currentTime}
+        </div>
     )
 }
 
-export default Home;
+export default ConverVideo;
